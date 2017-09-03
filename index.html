@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="monopoly-manager">
+<head>
+    <title></title>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" src="css/bootstrap.min.css">
+
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+    <h1>Welcome to Monopoly Manager!</h1>
+    <div ng-controller="SetupGameController as setup" ng-hide="setup.gameStarted">
+        <form name="addPlayerForm" ng-submit="setup.addPlayer()">
+            New player: <input type="text" ng-model="setup.newPlayerName">
+            <input type="Submit" name="Submit" value="Submit">
+        </form>
+        <p>
+            <ol>
+                <li ng-repeat="player in _playersList">{{ player.name }}: {{player.balance}}</li>
+            </ol>
+        </p>
+
+        <button ng-show="_playersList.length >= 2" ng-click="setup.startGame()">Start Game!!</button>
+    </div>
+
+</body>
+</html>
