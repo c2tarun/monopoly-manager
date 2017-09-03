@@ -9,10 +9,11 @@
 </head>
 <body>
     <h1>Welcome to Monopoly Manager!</h1>
-    <div ng-controller="SetupGameController as setup" ng-hide="setup.gameStarted">
+    <div ng-controller="SetupGameController as setup" ng-hide="_gameStarted">
         <form name="addPlayerForm" ng-submit="setup.addPlayer()">
-            New player: <input type="text" ng-model="setup.newPlayerName">
+            Enter Player: <input type="text" ng-model="setup.newPlayerName">
             <input type="Submit" name="Submit" value="Submit">
+            <span>{{ setup.errorMessage }}</span>
         </form>
         <p>
             <ol>
@@ -23,5 +24,6 @@
         <button ng-show="_playersList.length >= 2" ng-click="setup.startGame()">Start Game!!</button>
     </div>
 
+    
 </body>
 </html>
