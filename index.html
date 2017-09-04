@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Welcome to Monopoly Manager!</h1>
-    <div ng-controller="SetupGameController as setup" ng-hide="_gameStarted">
+    <div ng-controller="SetupGameController as setup" ng-hide="setup._gameStarted">
         <form name="addPlayerForm" ng-submit="setup.addPlayer()">
             Enter Player: <input type="text" ng-model="setup.newPlayerName">
             <input type="Submit" name="Submit" value="Submit">
@@ -17,13 +17,37 @@
         </form>
         <p>
             <ol>
-                <li ng-repeat="player in _playersList">{{ player.name }}: {{player.balance}}</li>
+                <li ng-repeat="player in setup._playersList">{{ player.name }}: {{player.balance}}</li>
             </ol>
         </p>
 
-        <button ng-show="_playersList.length >= 2" ng-click="setup.startGame()">Start Game!!</button>
+        <button ng-show="setup._playersList.length >= 2" ng-click="setup.startGame()">Start Game!!</button>
     </div>
 
-    
+    <div ng-controller="GameProgressController as gp" ng-show="gameStarted">
+        <table>
+            <tr ng-repeat='player in gp.playersList'>
+                <td>{{player.name}}</td>
+                <td>{{player.balance}}</td>
+            </tr>
+        </table>
+
+        <form ng-submit="gp.transferMoney()">
+            From:
+            <select ng-model="gp.transferFrom">
+                <option ng-repeat="player in gp.playersList" value="{{$index}}">{{player.name}}</option>
+            </select>
+
+            To:
+            <select ng-model="gp.transferTo">
+                <option ng-repeat="player in gp.playersList" value="{{$index}}">{{player.name}}</option>
+            </select>
+
+
+            Amount: <input type="number" ng-model="gp.transferAmount" min="1">
+
+            <input type="Submit" value="Transfer">
+        </form>
+    </div>
 </body>
 </html>
